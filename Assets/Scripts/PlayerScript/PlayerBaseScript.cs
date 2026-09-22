@@ -11,6 +11,12 @@ public enum BulletType
 }
 public class PlayerBaseScript : MonoBehaviour
 {
+    public enum PlayerState 
+    {
+       Idle,
+       Shoot,
+       Battle
+    }
 
     public BulletType playerTypeMode = BulletType.Green;
     int damage_point = 1;
@@ -21,25 +27,49 @@ public class PlayerBaseScript : MonoBehaviour
 
     public Transform enemyTransform = null;
 
+    public PlayerState curState = PlayerState.Idle;
+
     public bool can_shoot = true;
 
 
    public void EnemyDetected(Transform target)
     {
         enemyTransform = target;
+        
 
         StartCoroutine("loopShoot");
     }
 
+    public void EnemyCleared()
+    {
+        enemyTransform = null;
+        curState = PlayerState.Idle;
+        StopCoroutine("loopShoot");
+    }
+
     IEnumerator loopShoot()
     {
-        if (enemyTransform != null) 
-            InvokeRepeating("ShootBullet", 0f, 1f);
 
-        yield return new WaitForSeconds(1.0f);
+        if (enemyTransform != null)
+        {
+            Debug.Log(enemyTransform.gameObject.name);
+            curState = PlayerState.Shoot;
+            if (can_shoot)
+            {
+                InvokeRepeating("ShootBullet", 0f, 1f);
+                can_shoot = false;
+            }
+            yield return new WaitForSeconds(1.0f);
+
+            
+            can_shoot = true;
+
+        }
     }
    public void ShootBullet()
     {
+        if (curState == PlayerState.Shoot && enemyTransform != null) 
+        {
             Debug.Log("Shoot");
             Vector3 spawnPos = muzzlePosition.position + projectile_Placement;
 
@@ -50,6 +80,8 @@ public class PlayerBaseScript : MonoBehaviour
 
             proj.name = "pea";
 
+            curState = PlayerState.Battle;
+        }
 
     }
 }

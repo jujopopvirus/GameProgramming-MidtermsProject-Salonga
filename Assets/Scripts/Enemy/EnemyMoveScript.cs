@@ -18,9 +18,10 @@ public class EnemyMoveScript : MonoBehaviour
     {
         if (playerPosition != null)
         {
+            startPos.y = playerPosition.position.y;
             elapsedTime += Time.deltaTime;
 
-            float toa = TimeOfArrival * 100;
+            float toa = TimeOfArrival;
 
             float t = elapsedTime / toa;
 

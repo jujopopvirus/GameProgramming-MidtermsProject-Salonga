@@ -13,11 +13,13 @@ public class PlayerRotationScript : MonoBehaviour
     }
     void Update()
     {
-        Transform curEnemy = OnDetectEnemies();
-        if (curEnemy != null)
+        Transform currentEnemy = OnDetectEnemies();
+        if (currentEnemy != null)
         {
-            transform.LookAt(curEnemy);
+            transform.LookAt(OnDetectEnemies());
+            player.EnemyDetected(currentEnemy);
         }
+        
     }
 
     public Transform OnDetectEnemies()
@@ -44,6 +46,9 @@ public class PlayerRotationScript : MonoBehaviour
                 Debug.Log("Enemy Detected");
             }
         }
+
+
+        if (current_enemy == null) player.EnemyCleared();
 
         return current_enemy;
     }

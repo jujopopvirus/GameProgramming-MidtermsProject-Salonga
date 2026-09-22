@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6523514731420204260}
   - component: {fileID: 6405744937702491378}
   - component: {fileID: 8530072581670131429}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PeaProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   type: 0
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!135 &6523514731420204260
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -152,7 +152,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
