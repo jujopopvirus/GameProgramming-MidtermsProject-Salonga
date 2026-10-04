@@ -1,11 +1,16 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerRotationScript : MonoBehaviour
 {
     float detectionRadius = 15f;
-    public float rotation_speed = 6.5f;
+    public float rotation_speed = 32.5f;
     public LayerMask enemyLayer;
     public PlayerBaseScript player;
+    [SerializeField] private float maxRayDistance = 100f;
+    [SerializeField] private float FireSpeed = 1.2f;
+    [SerializeField] private float nextBulletFire = 0.0f;
+    private Transform currentEnemy = null;
 
     private void Awake()
     {
@@ -13,13 +18,55 @@ public class PlayerRotationScript : MonoBehaviour
     }
     void Update()
     {
-        Transform currentEnemy = OnDetectEnemies();
-        if (currentEnemy != null)
+        Transform targetEnemy = OnDetectEnemies();
+
+        if (targetEnemy != null)
         {
-            transform.LookAt(OnDetectEnemies());
-            player.EnemyDetected(currentEnemy);
+            currentEnemy = targetEnemy;
+
+            Vector3 rayPosition = transform.position;
+            lookAtEnemy(targetEnemy);
+
+            Debug.DrawRay(rayPosition, transform.forward * maxRayDistance, Color.red);
+
+            if (currentEnemy != null)
+            {
+
+                if (Physics.Raycast(rayPosition, transform.forward, out RaycastHit hit, maxRayDistance, enemyLayer))
+                {
+                    if (Time.time >= nextBulletFire)
+                    {
+                        Debug.Log("Enemy Detected : " + hit.transform.name);
+                        player.EnemyDetected(currentEnemy);
+
+                        nextBulletFire = Time.time + FireSpeed;
+                    }
+                }
+
+                else
+
+                {
+                    if (currentEnemy != null)
+                    {
+                        currentEnemy = null;
+                        player.EnemyCleared();
+                    }
+                }
+            }
+
         }
-        
+    }
+
+    private void lookAtEnemy(Transform target)
+    {
+        Vector3 dir = target.position - transform.position;
+        dir.y = 0f;
+
+        if (dir != Vector3.zero)
+        {
+            Quaternion lookRot = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * rotation_speed);
+        }
     }
 
     public Transform OnDetectEnemies()
@@ -43,7 +90,7 @@ public class PlayerRotationScript : MonoBehaviour
             {
                 closePos = enemyPos;
                 current_enemy = enemyCol.transform;
-                Debug.Log("Enemy Detected");
+                
             }
         }
 

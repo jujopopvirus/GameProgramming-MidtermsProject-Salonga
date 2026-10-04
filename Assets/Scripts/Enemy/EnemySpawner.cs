@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             EnemyMoveScript e = enemy.GetComponent<EnemyMoveScript>();
 
+            e.SetUpEnemyType();
             e.playerPosition = playerPosition;
 
             Debug.Log("Spawn only " + i.ToString());
