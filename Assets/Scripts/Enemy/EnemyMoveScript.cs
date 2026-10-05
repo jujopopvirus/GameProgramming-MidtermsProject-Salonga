@@ -22,7 +22,6 @@ public class EnemyMoveScript : MonoBehaviour
     public void EnemyDead()
     {
         Vector3 pPosition = transform.position;
-        pPosition.y += 5;
 
         Instantiate(bloodParticles, pPosition, Quaternion.identity);
         Destroy(gameObject);
@@ -55,6 +54,18 @@ public class EnemyMoveScript : MonoBehaviour
             float t = elapsedTime / 16f;
 
             transform.position = Vector3.Lerp(startPos, targetPosition, t);
+
+            float distanceToPlayer = Vector3.Distance(transform.position, targetPosition);
+            float reachT = 5.0f;
+
+            if (distanceToPlayer <= reachT)
+            {
+                transform.position = targetPosition;
+
+                Debug.Log("Enemy Reached!");
+                Destroy(gameObject);
+            }
+
         }
         else
         {

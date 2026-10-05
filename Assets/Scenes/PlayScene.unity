@@ -801,7 +801,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   player: {fileID: 817312857}
-  threshold: 0.95
   maxRayDistance: 100
   FireSpeed: 1
   nextBulletFire: 0
