@@ -58,7 +58,7 @@ public class projectileScript : MonoBehaviour
             if (enemy.enemyType == type)
             {
                 Debug.Log("Attacked!");
-                Destroy(collision.gameObject);
+                enemy.EnemyDead();
             }
             Destroy(gameObject);
         }

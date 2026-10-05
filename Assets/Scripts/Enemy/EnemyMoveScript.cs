@@ -10,6 +10,7 @@ public class EnemyMoveScript : MonoBehaviour
         BulletType.Red,
         BulletType.Yellow
     };
+    public GameObject bloodParticles;
 
     public BulletType enemyType;
     public int hitpoints = 1;
@@ -18,6 +19,14 @@ public class EnemyMoveScript : MonoBehaviour
      public Transform playerPosition;
     private float elapsedTime;
 
+    public void EnemyDead()
+    {
+        Vector3 pPosition = transform.position;
+        pPosition.y += 5;
+
+        Instantiate(bloodParticles, pPosition, Quaternion.identity);
+        Destroy(gameObject);
+    }
     public void Awake()
     {
         mesh = GetComponent<MeshRenderer>();

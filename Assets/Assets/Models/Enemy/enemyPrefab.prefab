@@ -110,6 +110,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d59d3b1f9fa81d744be7392c11092319, type: 2}
   - {fileID: 2100000, guid: bf6572b8629ecb14f8dacb10a9ac1b74, type: 2}
   ColorType: 00000000020000000100000003000000
+  bloodParticles: {fileID: 9084428671541636748, guid: 64764b49fe1200f4b8dbfef24313e486, type: 3}
   enemyType: 0
   hitpoints: 1
   playerPosition: {fileID: 0}
