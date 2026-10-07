@@ -8,7 +8,7 @@ public class projectileScript : MonoBehaviour
     [HideInInspector] public int damage = 1;
     [HideInInspector] public BulletType type = BulletType.Green;
     [SerializeField] private Material[] plantTypesMaterials;
-    [HideInInspector] public LayerMask enemyLayer;
+    [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private ParticleSystem ps;
     void Awake()
     {
@@ -49,18 +49,19 @@ public class projectileScript : MonoBehaviour
         rb.AddForce((spawnTransform.forward * proj_speed), ForceMode.Impulse);
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if ((enemyLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
 
+            if (enemy == null) Debug.Log("No Enemy Base");
             enemy.damage(gameObject, type, damage);
             Destroy(gameObject);
         }
     }
 
-    void OnBecameInvisible()
+    private void OnBecameInvisible()
     {
         Destroy(gameObject);
     }

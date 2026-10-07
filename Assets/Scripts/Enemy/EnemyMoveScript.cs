@@ -1,23 +1,36 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyMoveScript : MonoBehaviour
 {
     public Transform playerPosition;
     public float TimeToMove = 16f;
     private float elapsedTime;
+    EnemyBase en;
 
-
+    private void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
+        Destroy(gameObject);
+        enabled = false;
+    }
+    private void Awake()
+    {
+        en = gameObject.GetComponent<EnemyBase>();
+        GameManager.OnGameOver += GameOver;
+    }
     public void Update()
     {
-        MoveToPlayer(transform.position);
-    }
-    public void MoveToPlayer(Vector3 startPos)
-    {
-        if (playerPosition != null)
-        {
-            Vector3 targetPosition = playerPosition.position;
-            startPos.y = playerPosition.position.y;
+        if (playerPosition == null) MoveToPlayer(transform.position, new Vector3(0, 2f, 0));
 
+        MoveToPlayer(transform.position, playerPosition.position);
+    }
+    public void MoveToPlayer(Vector3 startPos, Vector3 toPos)
+    {
+            Vector3 targetPosition = toPos;
+            startPos.y = toPos.y;
+
+            transform.LookAt(toPos);    
 
             elapsedTime += Time.deltaTime * 0.01f;
             float t = elapsedTime / TimeToMove;
@@ -30,16 +43,8 @@ public class EnemyMoveScript : MonoBehaviour
             if (distanceToPlayer <= reachT)
             {
                 transform.position = targetPosition;
-
-                Debug.Log("Enemy Reached!");
-                Destroy(gameObject);
+                GameOver();
             }
-
-        }
-        else
-        {
-            Debug.Log("No player found");
-        }
     }
 }
 

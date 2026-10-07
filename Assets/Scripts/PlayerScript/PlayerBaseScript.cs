@@ -28,6 +28,7 @@ public class PlayerBaseScript : MonoBehaviour, ISwitchables
     public Transform enemyTransform = null;
     public PlayerState curState = PlayerState.Idle;
     [SerializeField] private Animator animator;
+
     [Header("Plant Type")]
     public BulletType playerTypeMode = BulletType.Green;
     private int TypeIndex = 0;
@@ -36,6 +37,12 @@ public class PlayerBaseScript : MonoBehaviour, ISwitchables
 
 
     private Coroutine shootCoroutine;
+
+    private void Awake()
+    {
+        GameManager.Instance.player = this;
+    }
+
     public void switchColor(GameObject interactor, BulletType typeColor)
     {
         playerTypeMode = typeColor;

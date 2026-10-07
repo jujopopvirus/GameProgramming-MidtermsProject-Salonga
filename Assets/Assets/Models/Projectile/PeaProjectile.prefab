@@ -4944,9 +4944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ccdad21fcfd3224db8e5dcd043cb7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::projectileScript
-  rb: {fileID: 6405744937702491378}
-  sm: {fileID: 3500605450926982129}
   proj_speed: 15
+  damage: 1
   type: 0
   plantTypesMaterials:
   - {fileID: 2100000, guid: fccb10be5c202854c86c0ef9886993ca, type: 2}
@@ -5017,12 +5016,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ccdad21fcfd3224db8e5dcd043cb7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::projectileScript
-  rb: {fileID: 6405744937702491378}
-  sm: {fileID: 0}
   proj_speed: 35
+  damage: 1
   type: 0
-  plantTypesMaterials: []
+  plantTypesMaterials:
+  - {fileID: 2100000, guid: fccb10be5c202854c86c0ef9886993ca, type: 2}
+  - {fileID: 2100000, guid: b114e0198503d4146a245a6ea248cd1b, type: 2}
+  - {fileID: 2100000, guid: d59d3b1f9fa81d744be7392c11092319, type: 2}
+  - {fileID: 2100000, guid: bf6572b8629ecb14f8dacb10a9ac1b74, type: 2}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
-  ps: {fileID: 0}
+    m_Bits: 64
+  ps: {fileID: 8333940675217086745}

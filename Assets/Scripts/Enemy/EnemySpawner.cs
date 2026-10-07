@@ -4,14 +4,19 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public Transform playerPosition;
+    public ScoreLable score;
     public float spawnTime = 1f;
     public int spawnCount = 1;
-    float minRadius = 20f;
-    float maxRadius = 35f;
-    
+    float minRadius = 35f;
+    float maxRadius = 45f;
+
     void Start()
     {
         InvokeRepeating("addEnemies", 0f, spawnTime);
+    }
+    private void Pause()
+    {
+        enabled = false;
     }
 
     public void addEnemies()
@@ -28,15 +33,17 @@ public class EnemySpawner : MonoBehaviour
             EnemyBase e = enemy.GetComponent<EnemyBase>();
             EnemyMoveScript m = enemy.GetComponent<EnemyMoveScript>();
 
-            e.SetUpEnemyType();
-            m.playerPosition = playerPosition;
+            float randSpeed = UnityEngine.Random.Range(18f, 28f);
+            int randHP = UnityEngine.Random.Range(1, 3);
 
-            Debug.Log("Spawn only " + i.ToString());
+            e.maxhealthpoints = randHP;
+            e.es = this;
+            e.SetUpEnemyType();
+
+            m.playerPosition = playerPosition;
+            m.TimeToMove = randSpeed;
+            
         }
-        
-    }
-    void Update()
-    {
         
     }
 }
