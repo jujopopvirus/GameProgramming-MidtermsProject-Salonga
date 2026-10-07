@@ -2,41 +2,10 @@ using UnityEngine;
 
 public class EnemyMoveScript : MonoBehaviour
 {
-    [SerializeField] private Material[] ColorMaterial;
-    [SerializeField] private BulletType[] ColorType = new BulletType[]
-    {
-        BulletType.Green,
-        BulletType.Blue,
-        BulletType.Red,
-        BulletType.Yellow
-    };
-    public GameObject bloodParticles;
-
-    public BulletType enemyType;
-    public int hitpoints = 1;
-    private MeshRenderer mesh;
-
-     public Transform playerPosition;
+    public Transform playerPosition;
+    public float TimeToMove = 16f;
     private float elapsedTime;
 
-    public void EnemyDead()
-    {
-        Vector3 pPosition = transform.position;
-
-        Instantiate(bloodParticles, pPosition, Quaternion.identity);
-        Destroy(gameObject);
-    }
-    public void Awake()
-    {
-        mesh = GetComponent<MeshRenderer>();
-    }
-    public void SetUpEnemyType()
-    {
-        int randIndex = UnityEngine.Random.Range(0,ColorMaterial.Length);
-        mesh.material = ColorMaterial[randIndex];
-
-        enemyType = ColorType[randIndex];
-    }
 
     public void Update()
     {
@@ -49,9 +18,9 @@ public class EnemyMoveScript : MonoBehaviour
             Vector3 targetPosition = playerPosition.position;
             startPos.y = playerPosition.position.y;
 
-            
+
             elapsedTime += Time.deltaTime * 0.01f;
-            float t = elapsedTime / 16f;
+            float t = elapsedTime / TimeToMove;
 
             transform.position = Vector3.Lerp(startPos, targetPosition, t);
 
@@ -73,3 +42,4 @@ public class EnemyMoveScript : MonoBehaviour
         }
     }
 }
+

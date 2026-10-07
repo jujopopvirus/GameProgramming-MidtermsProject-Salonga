@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class projectileScript : MonoBehaviour
 {
-    public Rigidbody rb;
-    public MeshRenderer sm;
-    public int proj_speed = 6;
-
-    public BulletType type = BulletType.Green;
+    Rigidbody rb;
+    MeshRenderer sm;
+    [HideInInspector] public int proj_speed = 6;
+    [HideInInspector] public int damage = 1;
+    [HideInInspector] public BulletType type = BulletType.Green;
     [SerializeField] private Material[] plantTypesMaterials;
-    public LayerMask enemyLayer;
+    [HideInInspector] public LayerMask enemyLayer;
     [SerializeField] private ParticleSystem ps;
     void Awake()
     {
@@ -49,24 +49,19 @@ public class projectileScript : MonoBehaviour
         rb.AddForce((spawnTransform.forward * proj_speed), ForceMode.Impulse);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if ((enemyLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
-            EnemyMoveScript enemy = collision.gameObject.GetComponent<EnemyMoveScript>();
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
 
-            if (enemy.enemyType == type)
-            {
-                Debug.Log("Attacked!");
-                enemy.EnemyDead();
-            }
+            enemy.damage(gameObject, type, damage);
             Destroy(gameObject);
         }
     }
 
-    private void OnBecameInvisible()
+    void OnBecameInvisible()
     {
         Destroy(gameObject);
-
     }
 }

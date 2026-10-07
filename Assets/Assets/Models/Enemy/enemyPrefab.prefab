@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2078163875858527401}
   - component: {fileID: 171897241241437130}
   - component: {fileID: 8546629089165207129}
-  - component: {fileID: 8169035584397164007}
   - component: {fileID: 1079366141038266081}
+  - component: {fileID: 2057362861289150008}
+  - component: {fileID: 4810631206251252538}
   m_Layer: 6
   m_Name: enemyPrefab
   m_TagString: Untagged
@@ -92,28 +93,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8169035584397164007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2047282455583521397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4650a17864e19fc42bdde32d8431e762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMoveScript
-  ColorMaterial:
-  - {fileID: 2100000, guid: fccb10be5c202854c86c0ef9886993ca, type: 2}
-  - {fileID: 2100000, guid: b114e0198503d4146a245a6ea248cd1b, type: 2}
-  - {fileID: 2100000, guid: d59d3b1f9fa81d744be7392c11092319, type: 2}
-  - {fileID: 2100000, guid: bf6572b8629ecb14f8dacb10a9ac1b74, type: 2}
-  ColorType: 00000000020000000100000003000000
-  bloodParticles: {fileID: 9084428671541636748, guid: 64764b49fe1200f4b8dbfef24313e486, type: 3}
-  enemyType: 0
-  hitpoints: 1
-  playerPosition: {fileID: 0}
 --- !u!136 &1079366141038266081
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -137,3 +116,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2057362861289150008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047282455583521397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4650a17864e19fc42bdde32d8431e762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMoveScript
+  playerPosition: {fileID: 0}
+  TimeToMove: 26
+--- !u!114 &4810631206251252538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047282455583521397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c09d7c3cdea63c419c73d02e8f637ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
+  ColorMaterial: []
+  ColorType: 
+  enemyType: 0
+  maxhealthpoints: 1

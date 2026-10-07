@@ -9,7 +9,7 @@ public enum BulletType
     Yellow
 }
 
-public class PlayerBaseScript : MonoBehaviour
+public class PlayerBaseScript : MonoBehaviour, ISwitchables
 {
     public enum PlayerState
     {
@@ -19,7 +19,7 @@ public class PlayerBaseScript : MonoBehaviour
     }
 
     
-    int damage_point = 1;
+    public int damage_point = 1;
     public GameObject projectilePrefab;
 
     [Header("Config")]
@@ -36,40 +36,10 @@ public class PlayerBaseScript : MonoBehaviour
 
 
     private Coroutine shootCoroutine;
-
-    private void OnMouseDown()
+    public void switchColor(GameObject interactor, BulletType typeColor)
     {
-        if (TypeIndex < plantTypesMaterials.Length - 1)
-        {
-            TypeIndex += 1;
-         
-            switch (TypeIndex)
-            {
-                case 0:
-                    ChangePlantType(BulletType.Green);
-                    break;
-                case 1:
-                    ChangePlantType(BulletType.Blue);
-                    break;
-                case 2:
-                    ChangePlantType(BulletType.Red);
-                    break;
-                case 3:
-                    ChangePlantType(BulletType.Yellow);
-                    break;
-            }
-        }
-        else
-        {
-            TypeIndex = 0;
-            ChangePlantType(BulletType.Green);
-
-        }
-    }
-    public void ChangePlantType(BulletType plantType)
-    {
-        playerTypeMode = plantType;
-        switch (plantType)
+        playerTypeMode = typeColor;
+        switch (typeColor)
         {
             case BulletType.Green:
                 ChangePlantMaterial(plantTypesMaterials[0]);
@@ -85,8 +55,36 @@ public class PlayerBaseScript : MonoBehaviour
                 break;
         }
     }
+    void OnMouseDown()
+    {
+        if (TypeIndex < plantTypesMaterials.Length - 1)
+        {
+            TypeIndex += 1;
+         
+            switch (TypeIndex)
+            {
+                case 0:
+                    switchColor(gameObject, BulletType.Green);
+                    break;
+                case 1:
+                    switchColor(gameObject, BulletType.Blue);
+                    break;
+                case 2:
+                    switchColor(gameObject, BulletType.Red);
+                    break;
+                case 3:
+                    switchColor(gameObject, BulletType.Yellow);
+                    break;
+            }
+        }
+        else
+        {
+            TypeIndex = 0;
+            switchColor(gameObject, BulletType.Green);
 
-    private void ChangePlantMaterial(Material mat)
+        }
+    }
+    void ChangePlantMaterial(Material mat)
     {
         foreach (SkinnedMeshRenderer b in plantBodyMaterial)
         {
@@ -146,8 +144,7 @@ public class PlayerBaseScript : MonoBehaviour
 
         p.shootProjectile(muzzlePosition);
         p.ChangeBulletType(playerTypeMode);
-
-        proj.name = "pea";
+        p.damage = damage_point;
 
         curState = PlayerState.Battle;
     }

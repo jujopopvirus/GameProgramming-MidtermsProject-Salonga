@@ -23,12 +23,13 @@ public class EnemySpawner : MonoBehaviour
             float randomDis = Random.Range(minRadius, maxRadius);
             Vector3 spawnOffset = new Vector3(randDir.x, 0f, randDir.y) * randomDis;
             Vector3 spawnPos = transform.position + spawnOffset;
-
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            EnemyMoveScript e = enemy.GetComponent<EnemyMoveScript>();
+
+            EnemyBase e = enemy.GetComponent<EnemyBase>();
+            EnemyMoveScript m = enemy.GetComponent<EnemyMoveScript>();
 
             e.SetUpEnemyType();
-            e.playerPosition = playerPosition;
+            m.playerPosition = playerPosition;
 
             Debug.Log("Spawn only " + i.ToString());
         }
